@@ -1,1 +1,3 @@
-# devops-primer-mod3-rickybarbour
+# Core BTS DevOps Primer - Module 3 - Workspace devops-primer-mod3-rickybarbour
+
+This repository is intended to be an interactive workspace for completing Module 3 of the Core BTS DevOps Primer course. Refer to the [Course Repo](https://github.com/CoreBTS/devops-primer) for all course instructions or checkout the [instructions](/instructions.md) for Module 3 that have been copied here for convenience.
