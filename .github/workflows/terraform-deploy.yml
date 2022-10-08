@@ -35,7 +35,7 @@ jobs:
 
     - name: Change to working directory
       id: wd-change
-      run: cd /
+      run: cd ${GITHUB_WORKSPACE}
 
     - name: Terraform Plan
       id: terraform-plan
