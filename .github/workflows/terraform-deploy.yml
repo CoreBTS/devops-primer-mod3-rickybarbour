@@ -6,6 +6,10 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
+defaults:
+  run:
+    working-directory: /
+
 on:
   workflow_dispatch:
 
@@ -35,5 +39,5 @@ jobs:
 
     - name: Terraform Plan
       id: terraform-plan
-      run: terraform plan -var-file="../../nonprod.tfvars"
+      run: terraform plan -var-file="nonprod.tfvars"
 
