@@ -35,7 +35,10 @@ jobs:
 
     - name: Change to working directory
       id: wd-change
-      run: cd ${GITHUB_WORKSPACE}
+      run: cd /home/runner/work/devops-primer-mod3-rickybarbour/devops-primer-mod3-rickybarbour
+           ls -a
+           echo ${GITHUB_WORKSPACE} 
+           echo $GITHUB_WORKSPACE
 
     - name: Terraform Plan
       id: terraform-plan
