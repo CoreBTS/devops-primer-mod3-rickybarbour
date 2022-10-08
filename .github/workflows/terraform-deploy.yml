@@ -38,6 +38,8 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         ls -a
+        echo $GITHUB_WORKSPACE
+        cd /home/runner/work/devops-primer-mod3-rickybarbour/devops-primer-mod3-rickybarbour
 
     - name: Terraform Plan
       id: terraform-plan
