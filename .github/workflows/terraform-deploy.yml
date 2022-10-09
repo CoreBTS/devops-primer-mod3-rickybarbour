@@ -34,7 +34,7 @@ jobs:
 
     - name: Terraform Apply
       id: terraform-apply
-      run: terraform apply -var-file="nonprod.tfvars" -auto-approve -input=false     
+      run: terraform apply -var-file="nonprod.tfvars" -auto-approve -input=false -lock=false"     
           
   deploy:
     runs-on: ubuntu-latest
