@@ -71,7 +71,7 @@ resource "azurerm_key_vault" "kv-rickylab" {
 resource "azurerm_key_vault_access_policy" "ap02-rickylab" {
   key_vault_id = azurerm_key_vault.kv-rickylab.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
+  object_id    = "026b5ff1-a720-4c34-a8cf-8981550f97b4" #data.azurerm_client_config.current.object_id
 
   secret_permissions = [
     "Get",
