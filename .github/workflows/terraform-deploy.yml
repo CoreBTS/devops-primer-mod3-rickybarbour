@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: 'nonprod_tfplan'
-        path: 'nonprod.tfplan'
+        path: 'build.tfplan'
         retention-days: 5      
 
    # - name: Terraform Apply
