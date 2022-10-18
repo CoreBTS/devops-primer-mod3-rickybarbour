@@ -36,6 +36,17 @@ jobs:
         name: 'nonprod_tfplan'
         path: 'build.tfplan'
         retention-days: 5      
+        
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: 'nonprod_tfplan'
+          path: ./        
 
    # - name: Terraform Apply
    #   id: terraform-apply
