@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,19 +24,20 @@ jobs:
           
     - name: Terraform Validate
       id: validate
-      run: terraform validate          
-
-#    - name: Azure Login
-#      id: azure-login
-#      uses: azure/login@v1
-#      with:
-#          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ env.ARM_TENANT_ID }}"}'          
+      run: terraform validate              
 
     - name: Terraform Plan
       id: terraform-plan
-      run: terraform plan -var-file="nonprod.tfvars"
+      run: terraform plan -var-file="nonprod.tfvars" --out=build.tfplan
+      
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: 'nonprod_tfplan'
+        path: './nonprod.tfplan'
+        retention-days: 5      
 
-    - name: Terraform Apply
-      id: terraform-apply
-      run: terraform apply -var-file="nonprod.tfvars" -auto-approve -input=false
+   # - name: Terraform Apply
+   #   id: terraform-apply
+   #   run: terraform apply -var-file="nonprod.tfvars" -auto-approve -input=false
 
