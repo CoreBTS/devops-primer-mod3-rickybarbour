@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: 'nonprod_tfplan'
-        path: 'build.tfplan'
+        path: '${{ github.workspace }}/build.tfplan'
         retention-days: 5      
         
   deploy:
@@ -46,12 +46,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: 'nonprod_tfplan'
-          path: 'nonprod_tfplan' 
+          path: '${{ github.workspace }}/nonprod_tfplan' 
           
       - name: Decompress Terraform Artifact
         uses: montudor/action-zip@v1
         with: 
-          args: unzip nonprod_tfplan -d /home/runner/work/devops-primer-mod3-rickybarbour/devops-primer-mod3-rickybarbour/         
+          args: unzip nonprod_tfplan -d ${{ github.workspace }}         
           
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2  
