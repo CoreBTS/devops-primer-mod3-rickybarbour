@@ -50,6 +50,9 @@ jobs:
       
       - name: Display structure of downloaded files
         run: ls -R
+        
+      - name: Cat the file
+        run: cat build.tfplan        
           
       - name: Decompress Terraform Artifact
         uses: montudor/action-zip@v1
