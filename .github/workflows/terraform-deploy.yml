@@ -41,16 +41,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
 
-    steps:
-      - name: Check location
-        run: |
-          ls -A
-          
+    steps:       
       - name: Download Terraform Artifact
         uses: actions/download-artifact@v3
         with:
           name: 'nonprod_tfplan'
-          path: ./    
+          path: 'build.tfplan' 
           
       - name: Decompress Terraform Artifact
         run: unzip 'nonprod_tfplan'          
