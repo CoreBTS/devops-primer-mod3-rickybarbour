@@ -46,7 +46,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: 'nonprod_tfplan'
-          path: '${{ github.workspace }}/nonprod_tfplan' 
+          path: '${{ github.workspace }}' 
+      
+      - name: Display structure of downloaded files
+        run: ls -R
           
       - name: Decompress Terraform Artifact
         uses: montudor/action-zip@v1
