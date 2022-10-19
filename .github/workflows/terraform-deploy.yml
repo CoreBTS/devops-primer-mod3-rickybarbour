@@ -42,11 +42,14 @@ jobs:
     needs: build
 
     steps:
-      - name: Download Artifact
+      - name: Download Terraform Artifact
         uses: actions/download-artifact@v3
         with:
           name: 'nonprod_tfplan'
           path: ./    
+          
+      - name: Decompress Terraform Artifact
+        run: unzip './nonprod_tfplan.zip'          
           
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2  
@@ -55,7 +58,7 @@ jobs:
         run: |
             terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p        
 
-   # - name: Terraform Apply
-   #   id: terraform-apply
-   #   run: terraform apply -var-file="nonprod.tfvars" -auto-approve -input=false
+      - name: Terraform Apply
+        id: terraform-apply
+        run: terraform apply build.tfplan -var-file="nonprod.tfvars" -auto-approve -input=false
 
