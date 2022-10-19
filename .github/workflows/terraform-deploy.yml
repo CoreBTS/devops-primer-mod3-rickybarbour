@@ -49,9 +49,9 @@ jobs:
           path: 'nonprod_tfplan' 
           
       - name: Decompress Terraform Artifact
-        run: |
-          cd /home/runner/work/devops-primer-mod3-rickybarbour/devops-primer-mod3-rickybarbour/
-          unzip nonprod_tfplan          
+        uses: montudor/action-zip@v1
+        with: 
+          args: unzip nonprod_tfplan -d /home/runner/work/devops-primer-mod3-rickybarbour/devops-primer-mod3-rickybarbour/         
           
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2  
