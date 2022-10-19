@@ -46,7 +46,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: 'nonprod_tfplan'
-          path: 'build.tfplan' 
+          path: 'nonprod_tfplan.zip' 
           
       - name: Decompress Terraform Artifact
         run: unzip 'nonprod_tfplan'          
