@@ -47,6 +47,8 @@ jobs:
         with:
           name: 'nonprod_tfplan'
           path: ./    
+          run: |
+            ls -A
           
       - name: Decompress Terraform Artifact
         run: unzip '/home/runner/work/devops-primer-mod3-rickybarbour/devops-primer-mod3-rickybarbour/nonprod_tfplan.zip'          
