@@ -49,7 +49,7 @@ jobs:
           path: 'nonprod_tfplan.zip' 
           
       - name: Decompress Terraform Artifact
-        run: unzip 'nonprod_tfplan'          
+        run: unzip '/home/runner/work/devops-primer-mod3-rickybarbour/devops-primer-mod3-rickybarbour/nonprod_tfplan.zip'          
           
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2  
