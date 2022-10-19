@@ -50,7 +50,7 @@ jobs:
           
       - name: Decompress Terraform Artifact
         run: |
-          cd /home/runner/work/devops-primer-mod3-rickybarbour/devops-primer-mod3-rickybarbour/nonprod_tfplan
+          cd /home/runner/work/devops-primer-mod3-rickybarbour/devops-primer-mod3-rickybarbour/
           unzip nonprod_tfplan          
           
       - name: Setup Terraform
