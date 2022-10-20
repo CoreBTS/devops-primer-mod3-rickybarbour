@@ -28,14 +28,7 @@ jobs:
 
     - name: Terraform Plan
       id: terraform-plan
-      run: terraform plan -var-file="nonprod.tfvars" --out=build.tfplan
-      
-#    - name: Upload Build Artifact
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: 'nonprod_tfplan'
-#        path: '${{ github.workspace }}/build.tfplan'
-#        retention-days: 5   
+      run: terraform plan -var-file="nonprod.tfvars" --out=build.tfplan 
         
     - name: Upload Entire Working Directory as Artifact
       uses: actions/upload-artifact@v3
@@ -48,13 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
 
-    steps:       
-#      - name: Download Terraform Artifact
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: 'nonprod_tfplan'
-#          path: '${{ github.workspace }}' 
-          
+    steps:                 
       - name: Download Terraform Dependency Artifacts
         uses: actions/download-artifact@v3
         with:
@@ -70,27 +57,13 @@ jobs:
         run: ls -R
         
       - name: Cat the file
-        run: cat build.tfplan        
-          
- #     - name: Unzip Terraform Artifact
- #       uses: montudor/action-zip@v1
- #       with: 
- #         args: unzip working-directory 
-          
-#      - name: Unzip Terraform Lockfile
-#        uses: montudor/action-zip@v1
-#        with: 
-#          args: unzip .terraform.lock.hcl           
+        run: cat build.tfplan                 
           
       - name: Display structure of unzipped files
         run: ls -R          
           
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2  
-        
-#      - name: Terraform Init
-#        run: |
-#            terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p  
 
       - name: Terraform Apply
         id: terraform-apply
