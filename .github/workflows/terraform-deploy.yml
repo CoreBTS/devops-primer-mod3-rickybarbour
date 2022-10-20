@@ -7,6 +7,10 @@ env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
 on:
+  push:
+    branches:
+      - main
+      - rb-lab3
   workflow_dispatch:
 
 jobs:
