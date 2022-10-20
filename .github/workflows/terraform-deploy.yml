@@ -30,19 +30,19 @@ jobs:
       id: terraform-plan
       run: terraform plan -var-file="nonprod.tfvars" --out=build.tfplan
       
-    - name: Upload Artifact
+    - name: Upload Build Artifact
       uses: actions/upload-artifact@v3
       with:
         name: 'nonprod_tfplan'
         path: '${{ github.workspace }}/build.tfplan'
         retention-days: 5   
         
-#    - name: Upload Artifact
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: 'lockfile'
-#        path: '${{ github.workspace }}/.terraform.lock.hcl'
-#        retention-days: 5             
+    - name: Upload Entire Working Directory as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: 'working-directory'
+        path: '${{ github.workspace }}'
+        retention-days: 5             
         
   deploy:
     runs-on: ubuntu-latest
