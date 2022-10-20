@@ -71,5 +71,5 @@ jobs:
 
       - name: Terraform Apply
         id: terraform-apply
-        run: terraform apply build.tfplan -var-file="nonprod.tfvars" -auto-approve -input=false
+        run: terraform apply build.tfplan
 
