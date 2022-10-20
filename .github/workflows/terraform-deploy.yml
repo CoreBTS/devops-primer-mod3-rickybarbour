@@ -67,10 +67,10 @@ jobs:
       - name: Cat the file
         run: cat build.tfplan        
           
-      - name: Unzip Terraform Artifact
-        uses: montudor/action-zip@v1
-        with: 
-          args: unzip working-directory 
+ #     - name: Unzip Terraform Artifact
+ #       uses: montudor/action-zip@v1
+ #       with: 
+ #         args: unzip working-directory 
           
 #      - name: Unzip Terraform Lockfile
 #        uses: montudor/action-zip@v1
@@ -83,10 +83,9 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2  
         
-      - name: Terraform Init
-        run: |
-            terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p  
-            rm .terraform.lock.hcl
+#      - name: Terraform Init
+#        run: |
+#            terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p  
 
       - name: Terraform Apply
         id: terraform-apply
