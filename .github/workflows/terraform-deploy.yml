@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: 'lockfile'
-          path: '${{ github.workspace }}/.terraform.lock.hcl'          
+          path: '${{ github.workspace }}'          
       
       - name: Display structure of downloaded files
         run: ls -R
