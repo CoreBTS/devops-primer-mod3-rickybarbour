@@ -67,7 +67,8 @@ jobs:
         
       - name: Terraform Init
         run: |
-            terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p        
+            terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p  
+            rm .terraform.lock.hcl
 
       - name: Terraform Apply
         id: terraform-apply
