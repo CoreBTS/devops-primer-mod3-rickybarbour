@@ -7,10 +7,10 @@ env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
 on:
-  push:
-    branches:
-      - main
-      - rb-lab3
+#  push:
+#    branches:
+#      - main
+#      - rb-lab3
   workflow_dispatch:
 
 jobs:
@@ -21,6 +21,15 @@ jobs:
     - uses: actions/checkout@v3
 
     - uses: hashicorp/setup-terraform@v2
+
+    - name: Get branch names
+      id: branch-name
+      uses: tj-actions/branch-names@v6
+      
+    - name: Current branch name
+      run: |
+          echo "${{ steps.branch-name.outputs.current_branch }}"
+        # Outputs: "feature/test" current PR branch.    
 
     - name: Terraform Init
       run: |
