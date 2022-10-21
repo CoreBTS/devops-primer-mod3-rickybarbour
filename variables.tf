@@ -27,3 +27,7 @@ variable "secret_name" {
   default     = "secret-rickylab-default-02"
   description = "Secret name"       
 }
+
+variable "asp_sku_name" {
+  description = "App Service Plan SKU"       
+}
