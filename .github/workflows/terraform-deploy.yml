@@ -46,7 +46,12 @@ jobs:
 
     - name: Terraform Plan
       id: terraform-plan
-      run: terraform plan -var-file="nonprod.tfvars" --out=build.tfplan 
+      run: |
+          if [[ steps.branch-name.outputs.current_branch == rb-lab3 ]] 
+          then
+            terraform plan -var-file="nonprod.tfvars" --out=build.tfplan
+          else
+            terraform plan -var-file="prod.tfvars" --out=build.tfplan
         
     - name: Upload Entire Working Directory as Artifact
       uses: actions/upload-artifact@v3
