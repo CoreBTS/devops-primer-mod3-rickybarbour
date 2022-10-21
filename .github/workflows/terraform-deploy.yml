@@ -33,7 +33,12 @@ jobs:
 
     - name: Terraform Init
       run: |
-          terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p
+          if [[ steps.branch-name.outputs.current_branch == rb-lab3 ]]
+          then
+            terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p
+          else
+            terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-p"
+          fi  
           
     - name: Terraform Validate
       id: validate
