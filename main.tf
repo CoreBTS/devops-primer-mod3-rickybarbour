@@ -98,10 +98,11 @@ resource "azurerm_key_vault_access_policy" "ap03-rickylab" {
   key_vault_id = azurerm_key_vault.kv-rickylab.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = "322964b9-c289-48a8-815c-78ccbd73e4e0"
-  
+
   lifecycle {
     precondition {
      condition    = var.asp_sku_name == "S1"
+     error_message = "S1 App Service Plan (Prod) not detected to deploy this access policy"
     }
   }
 
