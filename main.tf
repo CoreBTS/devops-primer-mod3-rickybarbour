@@ -94,6 +94,20 @@ resource "azurerm_key_vault_access_policy" "ap01-rickylab" {
 
 }
 
+resource "azurerm_key_vault_access_policy" "ap03-rickylab" {
+  object_name = "CoreBTS NOC and SD Staff"
+  key_vault_id = azurerm_key_vault.kv-rickylab.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = "322964b9-c289-48a8-815c-78ccbd73e4e0"
+  condition    = var.asp_sku_name == "S1"
+
+  secret_permissions = [
+    "Get",
+    "List"
+  ]
+
+}
+
 resource "azurerm_key_vault_secret" "secret-rickylab" {
   name         = var.secret_name
   value        = random_password.kv_app_secret.result
