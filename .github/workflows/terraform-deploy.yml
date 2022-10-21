@@ -52,6 +52,7 @@ jobs:
             terraform plan -var-file="nonprod.tfvars" --out=build.tfplan
           else
             terraform plan -var-file="prod.tfvars" --out=build.tfplan
+          fi 
         
     - name: Upload Entire Working Directory as Artifact
       uses: actions/upload-artifact@v3
