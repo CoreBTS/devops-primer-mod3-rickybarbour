@@ -7,10 +7,14 @@ env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
 on:
+#  push:
+#    branches:
+#      - main
+#      - rb-lab3
   workflow_dispatch:
 
 jobs:
-  setup:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,6 +22,71 @@ jobs:
 
     - uses: hashicorp/setup-terraform@v2
 
+    - name: Get branch names
+      id: branch-name
+      uses: tj-actions/branch-names@v6
+      
+    - name: Current branch name
+      run: |
+          echo "${{ steps.branch-name.outputs.current_branch }}"
+        # Outputs: "feature/test" current PR branch.    
+
     - name: Terraform Init
       run: |
-          terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p
+          if [[ ${{ steps.branch-name.outputs.current_branch }} == "dev" ]]
+          then
+            terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-np" # To use the production state file, use container_name=tfstate-devops-primer-mod3-rickybarbour-p
+          else
+            terraform init --backend-config="container_name=tfstate-devops-primer-mod3-rickybarbour-p"
+          fi  
+          
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate              
+
+    - name: Terraform Plan
+      id: terraform-plan
+      run: |
+          if [[ ${{ steps.branch-name.outputs.current_branch }} == "dev" ]] 
+          then
+            terraform plan -var-file="nonprod.tfvars" --out=build.tfplan
+          else
+            terraform plan -var-file="prod.tfvars" --out=build.tfplan
+          fi 
+        
+    - name: Upload Entire Working Directory as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: 'working-directory'
+        path: '${{ github.workspace }}'
+        retention-days: 5             
+        
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:                 
+      - name: Download Terraform Dependency Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: 'working-directory'
+          path: '${{ github.workspace }}' 
+          
+      - name: Set Required Permissions on Providers
+        run: |
+          chmod +x .terraform/providers/registry.terraform.io/hashicorp/azurerm/3.25.0/linux_amd64/terraform-provider-azurerm_v3.25.0_x5
+          chmod +x .terraform/providers/registry.terraform.io/hashicorp/random/3.4.3/linux_amd64/terraform-provider-random_v3.4.3_x5
+      
+      - name: Display structure of downloaded files
+        run: ls -R               
+          
+      - name: Display structure of unzipped files
+        run: ls -R          
+          
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2  
+
+      - name: Terraform Apply
+        id: terraform-apply
+        run: terraform apply build.tfplan
+
