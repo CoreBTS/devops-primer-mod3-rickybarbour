@@ -10,7 +10,7 @@ on:
 #  push:
 #    branches:
 #      - main
-#      - rb-lab3
+#      - dev
   workflow_dispatch:
 
 jobs:
@@ -78,10 +78,7 @@ jobs:
           chmod +x .terraform/providers/registry.terraform.io/hashicorp/random/3.4.3/linux_amd64/terraform-provider-random_v3.4.3_x5
       
       - name: Display structure of downloaded files
-        run: ls -R               
-          
-      - name: Display structure of unzipped files
-        run: ls -R          
+        run: ls -R                      
           
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2  
