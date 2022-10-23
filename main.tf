@@ -1,7 +1,3 @@
-#resource "random_pet" "rg_name" {
-#  prefix = var.resource_group_name_prefix
-#}
-
 data "azurerm_client_config" "current" {}
 data "azurerm_key_vault" "secret-rickylab" {
     name = azurerm_key_vault.kv-rickylab.name
