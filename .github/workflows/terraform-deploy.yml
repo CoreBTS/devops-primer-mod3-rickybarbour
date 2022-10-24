@@ -64,17 +64,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    environment: dev
 
     steps:         
-    
-      - name: Require manual approval before deploy
-        uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ github.TOKEN }}
-          approvers: rickybarbour
-          minimum-approvals: 1
-          issue-title: "Test issue title"    
-
       - name: Download Terraform Dependency Artifacts
         uses: actions/download-artifact@v3
         with:
